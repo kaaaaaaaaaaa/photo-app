@@ -26,8 +26,7 @@ function App() {
         <Switch>
           {/*user gõ / => redirect vè /photo  */}
           <Redirect exact from="/" to="/photos" />
-          {/* <Route path="/photos/add" component={AddEditPage} />
-          <Route path="/photos/add" component={AddEditPage} /> */}
+         
           <Route path="/photos" component={Photo} />
          
          

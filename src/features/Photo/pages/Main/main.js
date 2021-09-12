@@ -21,8 +21,6 @@ function MainPage(props) {
           <Container className="text-center">
             <div className="py-5">
               <Link to="/photos/add">Add new photo</Link>
-              <Link to="/photos/add/not">Add new photo</Link>
-
             </div>
     
             {/* <PhotoList
