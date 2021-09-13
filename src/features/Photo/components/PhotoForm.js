@@ -7,6 +7,10 @@ import React from "react";
 import { Button, FormGroup } from "reactstrap";
 import "../pages/AddEdit/styles.scss";
 
+import * as yup from "yup";
+
+//##########################################################
+
 // PhotoForm.propTypes = {
 //   onsubmit: PropTypes.func,
 // };
@@ -14,24 +18,41 @@ import "../pages/AddEdit/styles.scss";
 // PhotoForm.prototype = {
 //   onsubmit: null,
 // }
+
 function PhotoForm(props) {
   // khai bao gia tri khoi tao cho formik
   const initialValues = {
     title: "",
     categoryId: null,
-    photo: null
+    photo: "",
   };
+
+  //VALIDATRION YUP
+  const validationSchema = yup.object().shape({
+    title: yup.string().required('title is required!'),
+    categoryId: yup.number().required('categoryId is required').nullable(),
+    photo: yup.string().when("categoryId",{
+      is: 1,
+      then :yup.string().required('photo is required!'),
+      otherwise:yup.string()
+    })
+
+
+
+  });
+
   return (
     <div>
-      <Formik initialValues={initialValues}
-      onsubmit={value=>console.log('submited!')}
+      <Formik
+        initialValues={initialValues}
+        validationSchema ={validationSchema}
+        onSubmit={(value) => console.log("submited!",value)}
       >
-        
         {/* nhận vào cái hàm , truyền cho mình các formik props */}
         {(formikProps) => {
           //do somethings ...
           const { values, errors, touched } = formikProps;
-          console.log({ values, errors, touched });
+         console.log({ values, errors, touched })
 
           //return ui
           return (
@@ -43,6 +64,7 @@ function PhotoForm(props) {
                 label="Title"
                 placeholder="Enter your title..."
               />
+             
 
               <FastField
                 name="categoryId"
@@ -55,12 +77,10 @@ function PhotoForm(props) {
               <FastField
                 name="photo"
                 component={RandomPhotoField}
-                
                 label=" Photo"
-               
               />
 
-              <FormGroup >
+              <FormGroup>
                 <Button type="submit">Add to album</Button>
               </FormGroup>
             </Form>

@@ -1,6 +1,6 @@
+import { ErrorMessage } from 'formik';
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FormGroup, Input, Label } from 'reactstrap';
+import { FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 
 InputField.propTypes = {
     
@@ -12,9 +12,13 @@ function InputField(props) {
         label, type, placeholder, disabled, //props cua minh tu them 
     
     } = props;
-
+    
     //bind đủ 4 cái vào control 
     const {name, value, onChange, onBlur}= field;
+    console.log(name)
+    const {errors,touched} = form;
+    const showError = errors[name] && touched[name]
+
 
 
 
@@ -29,9 +33,19 @@ function InputField(props) {
                   placeholder={placeholder}
                   type={type}
                   disabled={disabled}
-                />
-              </FormGroup>
 
+                  invalid={showError} // FormFeedback yeu cau co class invalid trong thang dung truoc no
+                />
+
+                {/* {showError && <p>{errors[name]}</p>} */}
+                
+              {/* {showError && <FormFeedback>{errors[name]}</FormFeedback>}  */}
+
+              {/* formik ho tro <ErrorMessage> */}
+              <ErrorMessage name={name} component={FormFeedback}/> 
+                 
+              </FormGroup>
+              
 
                 
 

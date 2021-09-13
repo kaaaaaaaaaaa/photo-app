@@ -2,6 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 import "./RandomPhoto.scss";
+
+
+
+
+//##########################################################
+
 RandomPhoto.propTypes = {
   name: PropTypes.string,
   imageUrl: PropTypes.string,
@@ -14,6 +20,11 @@ RandomPhoto.propTypes = {
   //   onImageChange: null,
   //   onRandomButtonBlur: null,
 };
+
+
+
+
+
 function getRandomImageUrl() {
   const randomImageUrl = Math.trunc(Math.random() * 1000);
 
@@ -22,6 +33,7 @@ function getRandomImageUrl() {
 
 function RandomPhoto(props) {
   const { name, imageUrl, onImageChange, onRandomButtonBlur } = props; //bind vao control
+  
 
   function handelRandomPhotoClick() {
     if (onImageChange) {
