@@ -21,38 +21,31 @@ import * as yup from "yup";
 
 function PhotoForm(props) {
   // khai bao gia tri khoi tao cho formik
-  const initialValues = {
-    title: "",
-    categoryId: null,
-    photo: "",
-  };
+  const {initialValues,isAddMode}=props;
 
   //VALIDATRION YUP
   const validationSchema = yup.object().shape({
-    title: yup.string().required('title is required!'),
-    categoryId: yup.number().required('categoryId is required').nullable(),
-    photo: yup.string().when("categoryId",{
+    title: yup.string().required("title is required!"),
+    categoryId: yup.number().required("categoryId is required").nullable(),
+    photo: yup.string().when("categoryId", {
       is: 1,
-      then :yup.string().required('photo is required!'),
-      otherwise:yup.string()
-    })
-
-
-
+      then: yup.string().required("photo is required!"),
+      otherwise: yup.string(),
+    }),
   });
 
   return (
     <div>
       <Formik
         initialValues={initialValues}
-        validationSchema ={validationSchema}
-        onSubmit={(value) => console.log("submited!",value)}
+        validationSchema={validationSchema}
+        onSubmit={props.onSubmit} //props.onSubmit laf props dc thang cha truyeen xuong
       >
         {/* nhận vào cái hàm , truyền cho mình các formik props */}
         {(formikProps) => {
           //do somethings ...
-          const { values, errors, touched } = formikProps;
-         console.log({ values, errors, touched })
+          const { values, errors, touched, isSubmitting } = formikProps;
+          //  console.log({ values, errors, touched })
 
           //return ui
           return (
@@ -64,7 +57,6 @@ function PhotoForm(props) {
                 label="Title"
                 placeholder="Enter your title..."
               />
-             
 
               <FastField
                 name="categoryId"
@@ -81,7 +73,10 @@ function PhotoForm(props) {
               />
 
               <FormGroup>
-                <Button type="submit">Add to album</Button>
+                <Button type="submit" color={isAddMode ? 'primary': 'success'}>
+                  {isSubmitting && <spinner size="sm" />  }
+                  {isAddMode? 'Add to album': "Update album"}
+                </Button>
               </FormGroup>
             </Form>
           );
