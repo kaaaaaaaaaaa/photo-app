@@ -25,26 +25,23 @@ const config = {
 };
 firebase.initializeApp(config);
 
-
-
-
 function App() {
   // Listen to the Firebase Auth state and set the local state.
-  const [productList, setProductList]= useState([]);
+  const [productList, setProductList] = useState([]);
+
   const fetchProductList = async () => {
     try {
       const params = {
         _page: 1,
         _limit: 10,
-  
       };
       const response = await productApi.getAll(params);
       console.log(response);
       setProductList(response.data);
     } catch (error) {
-      console.log('Failed to fetch product list: ', error);
+      console.log("Failed to fetch product list: ", error);
     }
-  }
+  };
   useEffect(() => {
     const unregisterAuthObserver = firebase
       .auth()
@@ -54,7 +51,7 @@ function App() {
           return;
         }
         const token = await user.getIdToken();
-        console.log("login user: ", user.displayName);
+        // console.log("login user: ", user.displayName);
         console.log("token:", token);
       });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
@@ -65,25 +62,23 @@ function App() {
         const params = {
           _page: 1,
           _limit: 10,
-    
         };
         const response = await productApi.getAll(params);
         console.log(response);
         setProductList(response.data);
       } catch (error) {
-        console.log('Failed to fetch product list: ', error);
+        console.log("Failed to fetch product list: ", error);
       }
-    }
+    };
     fetchProductList();
-
-  },[])
+  }, []);
 
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Loading ...</div>}>
         {/* header chung, moi trang deu co header */}
         <Header />
-        <Button onClick={fetchProductList}>get api </Button>
+        {/* <Button onClick={fetchProductList}>get api </Button> */}
         {/* các trang tuong ung deu */}
         <Switch>
           {/*user gõ / => redirect vè /photo  */}
