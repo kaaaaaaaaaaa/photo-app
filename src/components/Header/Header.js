@@ -14,7 +14,7 @@ function Header() {
             <a 
               className="header__link header__title"
               href="/photos"
-              target="_blank"
+              
               rel="noopener noreferrer"
             >
               Photo App

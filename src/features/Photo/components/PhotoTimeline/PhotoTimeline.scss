@@ -1,0 +1,16 @@
+.photo-timeline {
+    position: relative;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    &>img {
+        width: 50%;
+        vertical-align: middle;
+        transition: all 0.45s ease 0s;
+    }
+    &__title {
+        margin: 1rem;
+        font-size: 30px;
+        line-height: 24px;
+    }
+}

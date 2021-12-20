@@ -69,6 +69,8 @@ function App() {
       } catch (error) {
         console.log("Failed to fetch product list: ", error);
       }
+
+      
     };
     fetchProductList();
   }, []);
