@@ -1,13 +1,13 @@
-import { PHOTO_CATEGORY_OPTIONS } from "constants/global"; //use jsconfig.jsson
-import InputField from "custom-fields/InputField/InputField";
-import RandomPhotoField from "custom-fields/RandomPhotoField/RandomPhotoField";
-import SelectField from "custom-fields/SelectField/SelectField";
-import { FastField, Form, Formik } from "formik";
-import React from "react";
-import { Button, FormGroup } from "reactstrap";
-import "../pages/AddEdit/styles.scss";
+import { PHOTO_CATEGORY_OPTIONS } from 'constants/global'; //use jsconfig.jsson
+import InputField from 'custom-fields/InputField/InputField';
+import RandomPhotoField from 'custom-fields/RandomPhotoField/RandomPhotoField';
+import SelectField from 'custom-fields/SelectField/SelectField';
+import { FastField, Form, Formik } from 'formik';
+import React from 'react';
+import { Button, FormGroup } from 'reactstrap';
+import '../pages/AddEdit/styles.scss';
 
-import * as yup from "yup";
+import * as yup from 'yup';
 
 //##########################################################
 
@@ -21,15 +21,15 @@ import * as yup from "yup";
 
 function PhotoForm(props) {
   // khai bao gia tri khoi tao cho formik
-  const {initialValues,isAddMode}=props;
+  const { initialValues, isAddMode } = props;
 
   //VALIDATRION YUP
   const validationSchema = yup.object().shape({
-    title: yup.string().required("title is required!"),
-    categoryId: yup.number().required("categoryId is required").nullable(),
-    photo: yup.string().when("categoryId", {
+    title: yup.string().required('title is required!'),
+    categoryId: yup.number().required('categoryId is required').nullable(),
+    photo: yup.string().when('categoryId', {
       is: 1,
-      then: yup.string().required("photo is required!"),
+      then: yup.string().required('photo is required!'),
       otherwise: yup.string(),
     }),
   });
@@ -39,21 +39,18 @@ function PhotoForm(props) {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={props.onSubmit} //props.onSubmit laf props dc thang cha truyeen xuong
+        onSubmit={props.onSubmit}
       >
-        {/* nhận vào cái hàm , truyền cho mình các formik props */}
         {(formikProps) => {
           //do somethings ...
           const { values, errors, touched, isSubmitting } = formikProps;
-          //  console.log({ values, errors, touched })
 
           //return ui
           return (
             <Form>
-              {/* khai bao 1 conntrol dung <Field/> hoac <FastField/> */}
-              <FastField //props của FastField
+              <FastField //props  FastField
                 name="title"
-                component={InputField} //cac props dc truyền vào
+                component={InputField}
                 label="Title"
                 placeholder="Enter your title..."
               />
@@ -73,9 +70,9 @@ function PhotoForm(props) {
               />
 
               <FormGroup>
-                <Button type="submit" color={isAddMode ? 'primary': 'success'}>
-                  {isSubmitting && <spinner size="sm" />  }
-                  {isAddMode? 'Add to album': "Update album"}
+                <Button type="submit" color={isAddMode ? 'primary' : 'success'}>
+                  {isSubmitting && <spinner size="sm" />}
+                  {isAddMode ? 'Add to album' : 'Update album'}
                 </Button>
               </FormGroup>
             </Form>

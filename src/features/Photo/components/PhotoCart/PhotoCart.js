@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Button } from "reactstrap";
-import './PhotoCart.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
+import './PhotoCart.scss';
 
 PhotoCart.propTypes = {
   photo: PropTypes.object,
@@ -15,20 +15,17 @@ PhotoCart.defaultProps = {
 };
 
 function PhotoCart(props) {
-  const { photo,  onEditClick, onRemoveClick } = props;
-const handleEditClick=() => {
-  if(onEditClick) {
-    // console.log(photo)
-    onEditClick(photo);
-  }
-}
-const handleRemoveClick=() => {
-  if(onRemoveClick) {
-    // console.log(photo)
-    onRemoveClick(photo);
-  }
-}
-
+  const { photo, onEditClick, onRemoveClick } = props;
+  const handleEditClick = () => {
+    if (onEditClick) {
+      onEditClick(photo);
+    }
+  };
+  const handleRemoveClick = () => {
+    if (onRemoveClick) {
+      onRemoveClick(photo);
+    }
+  };
 
   return (
     <div>
@@ -40,8 +37,7 @@ const handleRemoveClick=() => {
 
           <div className="photo__actions">
             <div>
-              <Button outline size="sm" color="light" 
-                      onClick={handleEditClick}>
+              <Button outline size="sm" color="light" onClick={handleEditClick}>
                 Edit
               </Button>
             </div>

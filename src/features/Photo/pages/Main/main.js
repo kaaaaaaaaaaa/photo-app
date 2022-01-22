@@ -1,40 +1,35 @@
-import Banner from "components/Banner/Banner";
-import Images from "constants/images";
-import PhotoList from "features/Photo/components/PhotoList/PhotoList";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Button, Container } from "reactstrap";
-import { removePhoto } from "features/Photo/PhotoSlice";
-import productApi from "api/productApi";
+import Banner from 'components/Banner/Banner';
+import Images from 'constants/images';
+import PhotoList from 'features/Photo/components/PhotoList/PhotoList';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Button, Container } from 'reactstrap';
+import { removePhoto } from 'features/Photo/PhotoSlice';
+import productApi from 'api/productApi';
 
 MainPage.propTypes = {};
 
 function MainPage(props) {
-  // lay cac gt moi add tu store state laf state trong store
-  const photos = useSelector((state) => state.photos); //  photos la photos:PhotoReducer => la cai [''] ,
-  // console.log(photos)
+  const photos = useSelector((state) => state.photos); // get value from redux store
   const dispatch = useDispatch();
   const history = useHistory();
   const { photoId } = useParams();
-  // console.log({photoId})
 
-  //CLICK EDDIT => CHUYẺN TỚI TRANG ADD/EDIT
   const handlePhotoEditClick = (photo) => {
     history.push(`/photos/${photo.id}`);
   };
   const handlePhotoRemoveClick = (photo) => {
-    console.log("clickkkkkkaaaaaaaa");
     const removePhotoId = photo.id;
     const action = removePhoto(removePhotoId);
     dispatch(action);
   };
 
-  console.log("Mainpage");
+  console.log('Mainpage');
   const [productList, setProductList] = useState([]);
 
-var isTimelinePage=false;
+  var isTimelinePage = false;
   const fetchProductList = async () => {
     try {
       const params = {
@@ -44,17 +39,13 @@ var isTimelinePage=false;
       const response = await productApi.getAll(params);
       console.log(response);
       setProductList(response.data);
-      isTimelinePage= !isTimelinePage;
-  console.log(isTimelinePage);
-
-
+      isTimelinePage = !isTimelinePage;
+      console.log(isTimelinePage);
     } catch (error) {
-      console.log("Failed to fetch product list: ", error);
+      console.log('Failed to fetch product list: ', error);
     }
-
-    
   };
-  console.log(productList)
+  console.log(productList);
   return (
     <div className="photo-main">
       <Banner
@@ -68,15 +59,15 @@ var isTimelinePage=false;
 
           <Link to="/photos/add">Add new photo</Link>
         </div>
-        {/* <PhotoList/> */}
 
-        {productList &&
-        <PhotoList
-        productList={productList}
-          photoList={photos}
-          onPhotoEditClick={handlePhotoEditClick}
-          onPhotoRemoveClick={handlePhotoRemoveClick}
-        /> }
+        {productList && (
+          <PhotoList
+            productList={productList}
+            photoList={photos}
+            onPhotoEditClick={handlePhotoEditClick}
+            onPhotoRemoveClick={handlePhotoRemoveClick}
+          />
+        )}
       </Container>
     </div>
   );

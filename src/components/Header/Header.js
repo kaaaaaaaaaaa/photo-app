@@ -11,10 +11,9 @@ function Header() {
       <Container>
         <Row className="justify-content-between">
           <Col xs="auto">
-            <a 
+            <a
               className="header__link header__title"
               href="/photos"
-              
               rel="noopener noreferrer"
             >
               Photo App
